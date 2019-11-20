@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/editormd.css" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-  <!--目录-->
+  <!-- ztree目录 -->
   <link rel="stylesheet" href="css/zTreeStyle/zTreeStyle.css">
   <style>            
     .editormd-html-preview {
@@ -39,7 +39,7 @@
 <script src="lib/flowchart.min.js"></script>
 <script src="lib/jquery.flowchart.min.js"></script>
 <script src="js/editormd.js"></script>
-<!--目录-->
+<!-- ztree目录 -->
 <script type="text/javascript" src="js/ztree/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="js/ztree/ztree_toc.js"></script>
 <script type="text/javascript" src="js/ztree/jquery.ztree.all-3.5.js"></script>
@@ -53,8 +53,6 @@ $(function() {
 		flowChart : true,  // 默认不解析
 		sequenceDiagram : true,  // 默认不解析
 	});
-});
-$(document).ready(function(){
 	$('#tree').ztree_toc({
 		is_auto_number : false,
 		documment_selector: '.markdown-body',
