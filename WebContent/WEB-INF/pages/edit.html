@@ -5,15 +5,13 @@
   <title>Simple example - Editor.md examples</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/editormd.css" />
-  <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
   <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">    
 </head>
 <body>
-<div id="layout">
-  <header>
-    <h1>Simple example</h1>
-  </header>
+<div id="layout" style="margin-top:20px;">
   <form action="/markdown/saveMarkDown.do" method="post">
+  	<input type="text" style="margin-left:5%;" name="markdownName">.md
     <div id="test-editormd">
        <textarea style="display:none;" name="markdownContent"></textarea>
     </div>
@@ -32,6 +30,7 @@
 <script src="lib/jquery.flowchart.min.js"></script>
 
 <script src="js/editormd.js"></script>
+<script src="js/layer/layer.js"></script>
 <script type="text/javascript">
 var testEditor;
 $(function() {

@@ -16,9 +16,8 @@ public class MarkdownController {
 	}
 
 	@RequestMapping("/saveMarkDown")
-	public String saveMarkDown(Model model, @RequestParam("markdownContent") String markdownContent ){
-		String fileName = "markdown";
-		FileUtils.exportMarkDown(fileName, markdownContent);
+	public String saveMarkDown(Model model, @RequestParam("markdownContent") String markdownContent, @RequestParam("markdownName") String markdownName){
+		FileUtils.exportMarkDown(markdownName, markdownContent);
 		model.addAttribute("markdownContent", markdownContent);
 		return "index";
 	}
