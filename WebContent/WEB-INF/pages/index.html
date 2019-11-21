@@ -1,50 +1,117 @@
-<!DOCTYPE HTML>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8" />
-  <title>HTML Preview(markdown to html) - Editor.md examples</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/editormd.css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Markdown | 主页</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+  <link rel="stylesheet" href="bower_components/layer/skin/default/layer.css">
+  <link rel="stylesheet" href="bower_components/ztree/css/metroStyle/metroStyle.css"/>
+  <link rel="stylesheet" href="bower_components/treegrid/jquery.treegrid.css"/>
+  <!-- Editor Maekdown -->
+  <link rel="stylesheet" href="bower_components/editormd/css/style.css" />
+  <link rel="stylesheet" href="bower_components/editormd/css/editormd.css" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-  <!-- ztree目录 -->
-  <link rel="stylesheet" href="css/zTreeStyle/zTreeStyle.css">
-  <style>            
-    .editormd-html-preview {
-      width: 90%;
-      margin: 0 auto;
-    }
-  </style>
 </head>
-<body>
-<div>
-  <div id="tree" class="ztree" style="float:left; width:15%; margin-left:10px;" align="left" ></div>
-  <div id="layout" style="float:right; width:83%;">
-    <div id="test-editormd-view">
-      <textarea id="append-test" class="markdown-body" style="display:none;" th:text="${markdownContent}"></textarea>          
-    </div>
+<body class="hold-transition skin-blue sidebar-mini text-left">
+<input id="fileName" type="hidden" th:value="${fileName}"/>
+<div class="wrapper">
+  <header class="main-header">
+    <a href="doIndexUI.do" class="logo">
+      <span class="logo-mini"><b>M</b></span>
+      <span class="logo-lg"><b>Markdown</b></span>
+    </a>
+    <nav class="navbar navbar-static-top" role="navigation">
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <li class="dropdown user user-menu">
+            
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <aside class="main-sidebar">
+    <!-- sidebar -->
+    <section class="sidebar">
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i><span>系统管理</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a id="load-markdown-id"><i class="glyphicon glyphicon-chevron-right"></i>笔记管理</a></li>
+          </ul>
+        </li>
+        <li>
+          <a onclick="doIndexEdit()"><i class="fa fa-gear"></i>
+            <span>主页编辑</span>
+          </a>
+        </li>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Main content -->
+    <section id="mainContentId" class="content container-fluid">
+      <div id="layout">
+        <div id="test-editormd-view">
+          <textarea id="append-test" class="markdown-body" style="display:none;" th:text="${markdownContent}"></textarea>          
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
 </div>
-</div>
-<!-- <script src="js/zepto.min.js"></script>
-<script>		
-  var jQuery = Zepto;  // 为了避免修改flowChart.js和sequence-diagram.js的源码，所以使用Zepto.js时想支持flowChart/sequenceDiagram就得加上这一句
-</script> -->
-<script src="js/jquery.min.js"></script>
-<script src="js/editormd.min.js"></script>
-<script src="lib/marked.min.js"></script>
-<script src="lib/prettify.min.js"></script>
+</body>
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- Editor Markdown -->
+<script src="bower_components/editormd/editormd.js"></script>
+<script src="bower_components/editormd/editormd.min.js"></script>
+<script src="bower_components/editormd/lib/marked.min.js"></script>
+<script src="bower_components/editormd/lib/prettify.min.js"></script>
+<script src="bower_components/editormd/lib/raphael.min.js"></script>
+<script src="bower_components/editormd/lib/underscore.min.js"></script>
+<script src="bower_components/editormd/lib/sequence-diagram.min.js"></script>
+<script src="bower_components/editormd/lib/flowchart.min.js"></script>
+<script src="bower_components/editormd/lib/jquery.flowchart.min.js"></script>
+<!-- Layer -->
+<script src="bower_components/layer/layer.js"></script>
 
-<script src="lib/raphael.min.js"></script>
-<script src="lib/underscore.min.js"></script>
-<script src="lib/sequence-diagram.min.js"></script>
-<script src="lib/flowchart.min.js"></script>
-<script src="lib/jquery.flowchart.min.js"></script>
-<script src="js/editormd.js"></script>
-<!-- ztree目录 -->
-<script type="text/javascript" src="js/ztree/jquery.ztree.core-3.5.js"></script>
-<script type="text/javascript" src="js/ztree/ztree_toc.js"></script>
-<script type="text/javascript" src="js/ztree/jquery.ztree.all-3.5.js"></script>
 <script type="text/javascript">
-$(function() {
+$(function(){
+	showMarkDown();
+	doLoadUI("load-markdown-id", "doMarkdownEditUI.do");
+})
+function doLoadUI(id, url){
+	$("#"+id).click(function(){
+    	$("#mainContentId").load(url, function(){
+        	$("#mainContentId").removeData();
+        });
+    });
+}
+function showMarkDown(){
 	var testEditormdView = editormd.markdownToHTML("test-editormd-view", {
 		htmlDecode : "style,script,iframe",  // you can filter tags decode
 		emoji : true,
@@ -53,12 +120,17 @@ $(function() {
 		flowChart : true,  // 默认不解析
 		sequenceDiagram : true,  // 默认不解析
 	});
-	$('#tree').ztree_toc({
-		is_auto_number : false,
-		documment_selector: '.markdown-body',
-		is_expand_all : true
-	});
-});
+}
+function doIndexEdit(){
+	var fileName = $("#fileName").val();
+	$("#mainContentId").load("doMarkdownEditUI.do", function(){
+    	$("#mainContentId").removeData();
+		$("#mainContentId").data("fileName", fileName);
+    });
+}
+//console.log();
+//alert();
+//debugger;
 </script>
 </body>
 </html>

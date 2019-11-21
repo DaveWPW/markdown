@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>HTML Preview(markdown to html) - Editor.md examples</title>
+  <link rel="stylesheet" href="bower_components/editormd/css/style.css" />
+  <link rel="stylesheet" href="bower_components/editormd/css/editormd.css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <!-- ztree目录 -->
+  <link rel="stylesheet" href="bower_components/ztree/css/zTreeStyle/zTreeStyle.css">
+  <style>            
+    .editormd-html-preview {
+      width: 90%;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <div id="tree" class="ztree" style="float:left; width:15%; margin-left:10px;" align="left" ></div>
+  <div id="layout" style="float:right; width:83%;">
+    <div id="test-editormd-view">
+      <textarea id="append-test" class="markdown-body" style="display:none;" th:text="${markdownContent}"></textarea>          
+    </div>
+  </div>
+</div>
+<!-- <script src="js/zepto.min.js"></script>
+<script>		
+  var jQuery = Zepto;  // 为了避免修改flowChart.js和sequence-diagram.js的源码，所以使用Zepto.js时想支持flowChart/sequenceDiagram就得加上这一句
+</script> -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/editormd/editormd.js"></script>
+<script src="bower_components/editormd/editormd.min.js"></script>
+<script src="bower_components/editormd/lib/marked.min.js"></script>
+<script src="bower_components/editormd/lib/prettify.min.js"></script>
+<script src="bower_components/editormd/lib/raphael.min.js"></script>
+<script src="bower_components/editormd/lib/underscore.min.js"></script>
+<script src="bower_components/editormd/lib/sequence-diagram.min.js"></script>
+<script src="bower_components/editormd/lib/flowchart.min.js"></script>
+<script src="bower_components/editormd/lib/jquery.flowchart.min.js"></script>
+<!-- ztree目录 -->
+<script type="text/javascript" src="bower_components/ztree/jquery.ztree.core-3.5.min.js"></script>
+<script type="text/javascript" src="bower_components/ztree/ztree_toc.min.js"></script>
+<script type="text/javascript" src="bower_components/ztree/jquery.ztree.all.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	var testEditormdView = editormd.markdownToHTML("test-editormd-view", {
+		htmlDecode : "style,script,iframe",  // you can filter tags decode
+		emoji : true,
+		taskList : true,
+		tex : true,  // 默认不解析
+		flowChart : true,  // 默认不解析
+		sequenceDiagram : true,  // 默认不解析
+	});
+	$('#tree').ztree_toc({
+		is_auto_number : false,
+		documment_selector: '.markdown-body',
+		is_expand_all : true
+	});
+});
+</script>
+</body>
+</html>
