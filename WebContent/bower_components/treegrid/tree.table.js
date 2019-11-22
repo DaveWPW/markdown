@@ -12,9 +12,9 @@
         this.columns = columns;
         this.data = {};// ajax的参数
         this.expandColumn = null;// 展开显示的列 
-        this.id = 'id';// 选取记录返回的值
-        this.code = 'id';// 用于设置父子关系
-        this.parentCode = 'parentId';// 用于设置父子关系
+        this.id = 'menuId';// 选取记录返回的值
+        this.code = 'menuNum';// 用于设置父子关系
+        this.parentCode = 'parentNum';// 用于设置父子关系
         this.expandAll = false;// 是否默认全部展开
         this.toolbarId = tableId + "Toolbar";
         this.height = 430;
