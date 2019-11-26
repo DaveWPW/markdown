@@ -11,32 +11,76 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUtils {
 	
 	/**
-	 * 图片上传工具类 
+	 * 图片上传
 	 * 
 	 * @param file
 	 * @param path
 	 * @return
 	 */
-    public static String upload(MultipartFile file, String path) {
+    public static String uploadImage(MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
+    	response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        //获取文件名
         String fileName = file.getOriginalFilename();
+        //使用UUID重命名
         fileName = UUID.randomUUID() + fileName.substring(fileName.indexOf("."), fileName.length());
-        File targetFile = new File(path, fileName);  
-        if(!targetFile.exists()){  
-            targetFile.mkdirs();  
+        //文件存放的路径
+        File targetFile = new File("D:/markdown/upload/images/"+fileName);
+        if(!targetFile.exists()){//是否存在
+            targetFile.mkdirs();//创建目录
         }
         try {  
             file.transferTo(targetFile);//保存
-        } catch (Exception e) {  
-            e.printStackTrace();  
-        } 
-        return fileName;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //全路径（协议类型://域名/项目名/命名空间/文件名）
+        String url = request.getScheme() + "://" + request.getServerName() + request.getContextPath() + "/doGetImageFile.do?name="+ fileName;
+        return url;
     }
+    /**
+     * 获取图片
+     * 
+     * @param response
+     * @param fileName
+     */
+    public static void getImageFile(HttpServletResponse response, String fileName) {
+    	String filePath = "D:/markdown/upload/images/"+fileName;
+        File file = new File(filePath);
+        if (file.exists()) {
+            FileInputStream fileInputStream = null;
+            OutputStream outputStream = null;
+            try {
+            	fileInputStream = new FileInputStream(file);
+            	outputStream = response.getOutputStream();
+                int count = 0;
+                byte[] buffer = new byte[1024 * 8];
+                while ((count = fileInputStream.read(buffer)) != -1) {
+                	outputStream.write(buffer, 0, count);
+                	outputStream.flush();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                	fileInputStream.close();
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
+        }
+    }
+    
     /**
      * 上传MarkDown文件
      * 
@@ -44,15 +88,15 @@ public class FileUtils {
      * @param data
      * @return
      */
-    public static boolean exportMarkDown(String fileName, String data) {
-    	File file = new File("D:/markdown/"+fileName+".md");
+    public static boolean uploadMarkDown(String fileName, String data) {
+    	File file = new File("D:/markdown/upload/markdown/"+fileName+".md");
 		try {
 			if(!file.exists()){//是否存在
 				file.createNewFile();//创建文件
 			}
 			FileOutputStream fileOutputStream = null;
 			fileOutputStream = new FileOutputStream(file);
-			return exportMarkDownByOutputStream(fileOutputStream, data);
+			return uploadMarkDownByOutputStream(fileOutputStream, data);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
@@ -66,7 +110,7 @@ public class FileUtils {
      * @param data
      * @return
      */
-    public static boolean exportMarkDownByOutputStream(OutputStream outputStream, String data) {
+    public static boolean uploadMarkDownByOutputStream(OutputStream outputStream, String data) {
 		boolean isSucess = false;
 		OutputStreamWriter outputStreamWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -114,15 +158,15 @@ public class FileUtils {
 	 * @param fileName
 	 * @return
 	 */
-	public static String getFileData(String fileName) {
-		File file = new File("D:/markdown/"+fileName+".md");
+	public static String getMarkDownData(String fileName) {
+		File file = new File("D:/markdown/upload/markdown/"+fileName+".md");
         if(!file.isFile()) {
         	return null;
         }
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
         try {
-        	inputStreamReader = new InputStreamReader(new FileInputStream(file), "UTF-8");
+        	inputStreamReader = new InputStreamReader(new FileInputStream(file), "utf-8");
         	bufferedReader = new BufferedReader(inputStreamReader);
         	String text = "";
         	String line;
